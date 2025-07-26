@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Amicusia - Psicólogo Virtual</title>
+    <style>
+        body { font-family: sans-serif; background: #f5f5f5; text-align: center; padding: 50px; }
+        #chat-box { width: 60%; margin: auto; }
+        #respuesta { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Amicusia 🧠</h1>
+    <p>Tu acompañante emocional virtual</p>
+
+    <div id="chat-box">
+        <input id="mensaje" placeholder="Escribe cómo te sientes..." style="width: 80%; padding: 10px;">
+        <button onclick="enviarMensaje()">Enviar</button>
+        <div id="respuesta"></div>
+    </div>
+
+    <script>
+        function enviarMensaje() {
+            const mensaje = document.getElementById("mensaje").value;
+
+            fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: mensaje })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("respuesta").innerHTML =
+                    `<strong>Respuesta:</strong> ${data.respuesta} <br>
+                    <strong>Emoción detectada:</strong> ${data.emocion}`;
+            });
+        }
+    </script>
+</body>
+</html>

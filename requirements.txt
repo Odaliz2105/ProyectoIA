@@ -1,0 +1,8 @@
+flask
+scikit-learn
+tensorflow
+keras
+numpy
+requests
+python-dotenv
+jupyterlab
